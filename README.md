@@ -57,7 +57,7 @@ yarn build
 ### Класс Api
 Обеспечивает доступ к веб-сервису. Его функции: реализация основных операций GET, POST, DELETE.
 
-### Класс Components 
+### Класс View 
 Класс для наследование модели отображения. Его функции: реализация базовые элементы для работы с элементами (например, установка текста у элемента).
 
 ### Класс Modal
@@ -67,11 +67,10 @@ yarn build
 
 ### Класс AppState 
 Класс для общих данных приложения, отслеживающий состояние и события.
-* `catalog` - отслеживание лотов, находящихся в корзине
 * `order` - отслеживает состояние заказа
 * `preview` - отслеживает тот лот, который находится в модальном окне
 * `catalog` - отслеживание списка доступных лотов
-```
+```typescript
 interface IAppState {
 	_catalog: IItem[];
 	_order: Order;
@@ -87,7 +86,7 @@ interface IAppState {
 
 ### Класс Item
 Класс для отдельной карточки.
-```
+```typescript
 interface IItem {
 	id: number;
 	title: string;
@@ -103,9 +102,9 @@ interface IItem {
 
 ### Класс Order
 Класс данных заказа, включая валидацию и генерацию события formErrors:changed.
-```
+```typescript
 interface IOrder {
-	_payment: 'card' | 'cash';
+	_payment: IPaymentType;
 	_adress: string;
 	_email: string;
 	_phone: string;
@@ -143,9 +142,23 @@ interface IOrder {
 
 ### Класс DeliveryForm 
 Потомок Form для формы заказа с платежной информацией и адресом доставки с элементами payment, address.
+```typescript
+type IPaymentType = 'card' | 'cash'
+interface IOrderDeliveryForm {
+	payment: IPaymentType;
+	address: string;
+}
+```
 
 ### Класс ContactsForm 
 Потомок Form для формы заказа с контактной информацией с элементами email, phone.
+```typescript
+interface IOrderContactsForm {
+		email: string; 
+		phone: string;
+}
+type IOrderForm = IOrderDeliveryForm & IOrderContactsForm;
+```
 
 ### Класс Success 
 Представление основной информации об оформленном заказе с общей суммой заказа с элементом total.
