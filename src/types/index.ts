@@ -35,10 +35,6 @@ interface IOrder extends IOrderForm {
 	postOrder(): void;
 }
 
-type CatalogChangeEvent = {
-	catalog: IItem[];
-};
-
 interface IAppState {
 	catalog: IItem[];
 	basket: IItem[];

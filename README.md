@@ -134,7 +134,7 @@ interface IOrder {
 ### Класс Card 
 Класс для карточки с элементами category, title, image, description, button, price.
 
-### Класс shoppingCardItem
+### Класс ShoppingCardItem
 Класс для представления элементов корзины с элементами index, title, price, deleteButton
 
 ### Класс Form 
