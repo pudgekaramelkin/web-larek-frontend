@@ -218,9 +218,9 @@ type IOrderForm = IOrderDeliveryForm & IOrderContactsForm;
 
 ### LarekAPI
 Класс взаимодействия с API-сервером.
-* `getLotItem` - метод для получения информации по определенному лоту
-* `getLotList` - метод для получения информации по всем лотам
-* `postOrderLots` - метод для оформления заказа
+* `getLotItem()` - метод для получения информации по определенному лоту
+* `getLotList()` - метод для получения информации по всем лотам
+* `postOrderLots()` - метод для оформления заказа
 
 ## Размещение в сети
 Ссылка на репозиторий: https://github.com/pudgekaramelkin/web-larek-frontend
