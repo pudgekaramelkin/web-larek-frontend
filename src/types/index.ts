@@ -55,5 +55,4 @@ export {
 	IOrderForm,
 	IOrder,
 	IAppState,
-	CatalogChangeEvent,
 };
