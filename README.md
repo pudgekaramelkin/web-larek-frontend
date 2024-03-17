@@ -44,7 +44,7 @@ yarn build
 Данный сайт реализован по MPV (Model-View-Presenter) паттерну и использует событийно-ориентированный подход, реализующийся с помощью класса EventEmitter:
 
 | **Компонент** | **Описание**                  | **Первичный класс (абстрактный)** | **Дочерние классы** |
-|:------------: |:----------------------------: | :-------------------------------:	|	:-----------------: |
+|:------------ |:----------------------------: | :-------------------------------:	|	:-----------------: |
 | Model         | Уровень данных                | Model       		                  | AppState <br> Item <br> Order   |
 | View          | Уровень отображения           | View        		                  | Page <br> Modal <br> ShoppingCart <br> Card <br> ShoppingCartItem <br> Form <br> ContactsForm <br> DeliveryForm <br> Success |                   
 | Presenter     | Прослойка между View и Model  | Отсутствует        		            | Отсутствуют (Реализация в index.ts) |
@@ -58,26 +58,26 @@ yarn build
 Абстрактный базовый класс, который обеспечивает доступ к веб-сервису. Он реализует основные операций: GET, POST.
 * `constructor(baseUrl: string, options: RequestInit)` - принимает домен сервера и параметры запроса при помощи встроенного типа `RequestInit`
 Методы:
-* - `getServerAnswer(result: Response): Promise<object>` - обрабатывает ответ сервера.
-* - `get(uri: string): Promise<object>` - реализация метода GET.
-* - `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - реализация метода POST.
+- `getServerAnswer(result: Response): Promise<object>` - обрабатывает ответ сервера.
+- `get(uri: string): Promise<object>` - реализация метода GET.
+- `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - реализация метода POST.
 
 ### Класс `View<T>` 
 Абстрактный базовый класс, предназначенным для создания компонентов пользовательского интерфейса. Класс обеспечивает инструментарий для управления DOM элементами и поведением компонента. Наследуется всеми классами представления (View).
 * `constructor(container: HTMLElement, events: IEvents)` - принимает элемент контейнера, в который будет помещен компонент и брокер событий.
 Методы:
-* - `toggleClass(element: HTMLElement, className: string, force?: boolean): void` - переключается класс для переданного элемента.
-* - `setText(element: HTMLElement, value: unknown): void` - устанавливает текстовое содержимое для переданного элемента.
-* - `setImage(element: HTMLImageElement, src: string, alt?: string): void` - устанавливает изображения и альтернативный текст для изоображения (опционально) для переданного элемента типа HTMLImageElement
-* - `setDisabled(element: HTMLElement, state: boolean): void` - изменяет статус блокировки для переданного элемента.
-* - `setHidden(element: HTMLElement): void`, `setVisible(element: HTMLElement): void` - скрывает, отоброжает переданный элемент.
-* - `render(data?: Partial<T>): HTMLElement` - рендерит компонент, используя переданные данные. Метод должен быть переназначен в дочерних классах.
+- `toggleClass(element: HTMLElement, className: string, force?: boolean): void` - переключается класс для переданного элемента.
+- `setText(element: HTMLElement, value: unknown): void` - устанавливает текстовое содержимое для переданного элемента.
+- `setImage(element: HTMLImageElement, src: string, alt?: string): void` - устанавливает изображения и альтернативный текст для изоображения (опционально) для переданного элемента типа HTMLImageElement
+- `setDisabled(element: HTMLElement, state: boolean): void` - изменяет статус блокировки для переданного элемента.
+- `setHidden(element: HTMLElement): void`, `setVisible(element: HTMLElement): void` - скрывает, отоброжает переданный элемент.
+- `render(data?: Partial<T>): HTMLElement` - рендерит компонент, используя переданные данные. Метод должен быть переназначен в дочерних классах.
  
 ### Класс `Model<T>`
 Абстрактный базовый класс, предназначенный для компонентов уровня данных. Его функции: связывание переданных данных со свойством объекта (это реализовано в конструкторе) и инициализация вызова именованных событий через метод `emitChanges`. Наследуется всеми классами представления (Model).
 * `constructor(data: Partial<T>, protected events: IEvents)` - принимает используемые моделью данные и объект брокера событий.
 Методы:
-* - `emitChanges(event: string, payload?: object): void` - сообщает об изменении в модели.
+- `emitChanges(event: string, payload?: object): void` - сообщает об изменении в модели.
 
 ## Компоненты уровня данных
 
@@ -89,13 +89,13 @@ yarn build
 * `_preview: IItem` - элемент лота, который находится в модальном окне.
 * `_catalog: IItem[]` - элемент списка доступных лотов, при установке данного свойства вызывается событие `catalog:changed`.
 Методы:
-* `set сatalog(items: IItem[])` - устанавливает каталог и вызывает `emitChanges`.
-* `set preview(items: IItem)` - устанавливает элемент лота, который находися в модальном окне и вызывает `emitChanges`.
-* `isItemInShoppingCart(item: IItem): boolean` - проверят, находится ли лот в корзине.
-* `clearShoppingCart(): void` - чистит корзину.
-* `getTotalAmount(): number` - возращает общую стоимость всех товаров в корзине.
-* `getShoppingCartIds(): string[]` - возращает массив индексов товаров в корзине. 
-* `initOrder(): IOrder` - инициализирует объект заказа.
+- `set сatalog(items: IItem[])` - устанавливает каталог и вызывает `emitChanges`.
+- `set preview(items: IItem)` - устанавливает элемент лота, который находися в модальном окне и вызывает `emitChanges`.
+- `isItemInShoppingCart(item: IItem): boolean` - проверят, находится ли лот в корзине.
+- `clearShoppingCart(): void` - чистит корзину.
+- `getTotalAmount(): number` - возращает общую стоимость всех товаров в корзине.
+- `getShoppingCartIds(): string[]` - возращает массив индексов товаров в корзине. 
+- `initOrder(): IOrder` - инициализирует объект заказа.
 
 
 ### Класс `Item`
@@ -109,8 +109,8 @@ yarn build
 * `price: number` - цена лота.
 * `isOrdered: boolean` - заказан ли лот.
 Методы:
-* `placeInShoppingCart(): void` - добавляет лот в корзину.
-* `removeFromShoppingCart(): void` - метод, удаляет лот из корзины.
+- `placeInShoppingCart(): void` - добавляет лот в корзину.
+- `removeFromShoppingCart(): void` - метод, удаляет лот из корзины.
 
 ### Класс `Order`
 Класс уровня данных для процесса оформления заказа. Он содержит те свойства, которые отображаются на соответствующих форм и реализует простейшую логику валидации свойств на наличие значений. Если происходят изменения в любом из доступных свойств, то вызывается проверка всех полей и генерируется событие `formErrors:changed`
@@ -122,8 +122,8 @@ yarn build
 * `_items: IItem[] ` - категория лота.
 * `_formErrors: IFormErrors` - цена лота.
 Методы:
-* `placeInShoppingCart(): void` - добавляет лот в корзину.
-* `removeFromShoppingCart(): void` - метод, удаляет лот из корзины.
+- `placeInShoppingCart(): void` - добавляет лот в корзину.
+- `removeFromShoppingCart(): void` - метод, удаляет лот из корзины.
 
 ## Компоненты уроня отображения
 
@@ -136,9 +136,9 @@ yarn build
 * `_wrapper: HTMLElement` - обертка, которая позволяет блокировать прокрутка страницы, если открыто модальное окно.
 * `_shoppingCart: HTMLButtonElement` - кнопка, которая отображет корзину. При нажатии на кнопку вызывается событие `shoppingCart:open`.
 Методы:
-* `set counter(value: number)` - устанавливает количество лотов в корзине.
-* `set galery(items: HTMLElement[])` - обновляет список карточек.
-* `set locked(value: boolean)` - обрабатывает блокировку страницы.
+- `set counter(value: number)` - устанавливает количество лотов в корзине.
+- `set galery(items: HTMLElement[])` - обновляет список карточек.
+- `set locked(value: boolean)` - обрабатывает блокировку страницы.
 
 ### Класс `Modal` 
 Класс уровня отображения для модального окна.
@@ -147,9 +147,9 @@ yarn build
 * `_closeButton: HTMLButtonElement` - элемент для отображения кнопки закрытия модального окна.
 * `_content: HTMLElement` - элемент для отображения внутреннего контента модального окна.
 Методы:
-* `set content(value: HTMLElement)` - назначает внутренний контент модального окна.
-* `open(): void` - открывает модальное окно.
-* `close(): close` - закрывает модальное окно.
+- `set content(value: HTMLElement)` - назначает внутренний контент модального окна.
+- `open(): void` - открывает модальное окно.
+- `close(): close` - закрывает модальное окно.
 
 ### Класс `ShoppingCart` 
 Класс отображения для корзины.
@@ -159,9 +159,9 @@ yarn build
 * `_total: HTMLElement` - элемент общей стоимости корзины.
 * `_button: HTMLElement` - элемент кнопки для открытия формы оформления заказа, который вызывает событие `order_payment:open`.
 Методы: 
-* `set items(item: HTMLElement[])` - назначает список отображаемых элементов.
-* `set total(value: number)` - назначает общую стоимость корзины.
-* `set valid(value: boolean)` - назначает закрытие/открытие кнопки длы формы оформления заказа.
+- `set items(item: HTMLElement[])` - назначает список отображаемых элементов.
+- `set total(value: number)` - назначает общую стоимость корзины.
+- `set valid(value: boolean)` - назначает закрытие/открытие кнопки длы формы оформления заказа.
 
 ### Класс `Card` 
 Класс отображения для карточки.
@@ -174,12 +174,12 @@ yarn build
 * `_price: HTMLElement` - элемент стоимости лота.
 * `_button: HTMLButtonElement` - элемент открытия карточки.
 Методы: 
-* `set title(value: IItemCategory)` - назначает название карточки.
-* `set description(value: string)` - назначает описание карточки.
-* `set image(value: string)` - назначает изображение карточки.
-* `set category(value: string)` - назначает категорию карточки.
-* `set price(value: number)` - назначает цену карточки.
-* `set button(value: string)` -назначает кнопку открытия карточки.
+- `set title(value: IItemCategory)` - назначает название карточки.
+- `set description(value: string)` - назначает описание карточки.
+- `set image(value: string)` - назначает изображение карточки.
+- `set category(value: string)` - назначает категорию карточки.
+- `set price(value: number)` - назначает цену карточки.
+- `set button(value: string)` -назначает кнопку открытия карточки.
 
 ### Класс `ShoppingCartItem`
 Класс отображение для элементов корзины.
@@ -190,9 +190,9 @@ yarn build
 * `_price: HTMLElement` - элемент стоимости элемента в корзине.
 * `_deleteButton: HTMLButtonElement` - элемент кнопки удаления элемента из корзины.
 Методы:
-* `set index(value: number)` -назначает номер элемента в корзине.
-* `set title(value: string)` -назначает название элемента в корзине.
-* `set price(value: number)` -назначает цену элемента в корзине.
+- `set index(value: number)` -назначает номер элемента в корзине.
+- `set title(value: string)` -назначает название элемента в корзине.
+- `set price(value: number)` -назначает цену элемента в корзине.
 
 ### Класс `Form<T>` 
 Класс отображения для базовой формы. На данный класс на весь контейнер отображения привязывается событие отслеживание `input`, для того, чтобы можно было вызвать события `container.field:change`, `container:submit`
@@ -201,10 +201,10 @@ yarn build
 * `_submit: HTMLButtonElement;` - элемент кнопки отправки формы.
 * `_errors: HTMLElement` - элемент блока отображения ошибок в форме.
 Методы:
-* `protected onInputChange(field: keyof T, value: string): void` - генерирует событие при каком-либо изменении в поле ввода.
-* `set valid(value: boolean)` - назначает закрытие/открытие формы.
-* `set errors(value: string)` - назначает текст ошибки.
-* `render(state: Partial<T> & IFormState): HTMLFormElement` - возращает обработанный контейнер.
+- `protected onInputChange(field: keyof T, value: string): void` - генерирует событие при каком-либо изменении в поле ввода.
+- `set valid(value: boolean)` - назначает закрытие/открытие формы.
+- `set errors(value: string)` - назначает текст ошибки.
+- `render(state: Partial<T> & IFormState): HTMLFormElement` - возращает обработанный контейнер.
 
 ### Класс `DeliveryForm` 
 Класс отображения для формы оформления заказа с адресом и способом оплаты, наследуется от класса `Form`.
@@ -213,16 +213,16 @@ yarn build
 * `_paymentContainer: HTMLDivElement` - элемент контейнера оплаты.
 * `_paymentButtons: HTMLButtonElement[]` - элемент кнопок оплаты.
 Методы:
-* `setClassPaymentMethod(className: string): void` - управляет выделением кнопки в зависимости от способа оплаты.
-* `set payment(value: string)` - назначает способ оплаты.
-* `set address(value: IPaymentType)` - назначает адрес оплаты.
+- `setClassPaymentMethod(className: string): void` - управляет выделением кнопки в зависимости от способа оплаты.
+- `set payment(value: string)` - назначает способ оплаты.
+- `set address(value: IPaymentType)` - назначает адрес оплаты.
 
 ### Класс `ContactsForm` 
 Класс отображения для формы оформления заказа с информацией, наследуется от класса `Form`.
 * `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
 Методы:
-* `set phone(value: string)` - назначает номер пользователя для формы.
-* `set email(value: string)` - назначает электронную почту пользователя для формы.
+- `set phone(value: string)` - назначает номер пользователя для формы.
+- `set email(value: string)` - назначает электронную почту пользователя для формы.
 
 ### Класс `Success` 
 Класс отображения для информации об успешном оформленном заказе.
@@ -231,7 +231,7 @@ yarn build
 * `_close: HTMLElement` - элемент закрытия окна.
 * `_total: HTMLElement` - элемент общей суммы.
 Методы: 
-* `set total(value: number)` - назначает списанную сумму.
+- `set total(value: number)` - назначает списанную сумму.
 
 ## Внешние связи
 
@@ -241,9 +241,9 @@ yarn build
 Поля:
 * `private cdn: string` - используемый домен со статикой.
 Методы:
-* `getLotItem(id: string): Promise<IItem>` - получает всю информация для конкертного лота.
-* `getLotList: Promise<IItem[]>` - выгружает все доступные лоты.
-* `postOrderLots(order: IOrderAPI): Promise<IOrderResult>` -отправляет запрос на оформление заказа на сервер.
+- `getLotItem(id: string): Promise<IItem>` - получает всю информация для конкертного лота.
+- `getLotList: Promise<IItem[]>` - выгружает все доступные лоты.
+- `postOrderLots(order: IOrderAPI): Promise<IOrderResult>` -отправляет запрос на оформление заказа на сервер.
 
 ## Ключевые типы данных
 ```typescript
@@ -292,15 +292,7 @@ interface IOrderDeliveryForm {
 	payment: IPaymentType;
 	address: string;
 }
-```
 
-### Класс `ContactsForm` 
-Класс для отображения формы оформления заказа с информацией, наследуется от класса `Form`.
-* `_email` - электронная почта
-* `_phone` - номер телефона <br>
-Также позволяет назначить(`set`) `email`, `phone`.
-
-```typescript
 interface IOrderContactsForm {
 		email: string; 
 		phone: string;
@@ -308,19 +300,6 @@ interface IOrderContactsForm {
 
 type IOrderForm = IOrderDeliveryForm & IOrderContactsForm;
 ```
-
-### Класс `Success` 
-Класс для отображения информации об оформленном заказе
-* `_total` - общая сумма заказа, получаемая с сервера <br>
-Также позволяет назначить(`set`) `total`.
-
-## Внешние связи
-
-### LarekAPI
-Класс взаимодействия с API-сервером.
-* `getLotItem()` - метод для получения информации по определенному лоту
-* `getLotList()` - метод для получения информации по всем лотам
-* `postOrderLots()` - метод для оформления заказа
 
 ## Размещение в сети
 Ссылка на репозиторий: https://github.com/pudgekaramelkin/web-larek-frontend
