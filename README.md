@@ -44,7 +44,7 @@ yarn build
 Данный сайт реализован по MPV (Model-View-Presenter) паттерну и использует событийно-ориентированный подход, реализующийся с помощью класса EventEmitter:
 
 | **Компонент** | **Описание**                  | **Первичный класс (абстрактный)** | **Дочерние классы** |
-|:------------ |:----------------------------: | :-------------------------------:	|	:-----------------: |
+|:------------: |:----------------------------: | :-------------------------------:	|	:-----------------: |
 | Model         | Уровень данных                | Model       		                  | AppState <br> Item <br> Order   |
 | View          | Уровень отображения           | View        		                  | Page <br> Modal <br> ShoppingCart <br> Card <br> ShoppingCartItem <br> Form <br> ContactsForm <br> DeliveryForm <br> Success |                   
 | Presenter     | Прослойка между View и Model  | Отсутствует        		            | Отсутствуют (Реализация в index.ts) |
@@ -292,7 +292,15 @@ interface IOrderDeliveryForm {
 	payment: IPaymentType;
 	address: string;
 }
+```
 
+### Класс `ContactsForm` 
+Класс для отображения формы оформления заказа с информацией, наследуется от класса `Form`.
+* `_email` - электронная почта
+* `_phone` - номер телефона <br>
+Также позволяет назначить(`set`) `email`, `phone`.
+
+```typescript
 interface IOrderContactsForm {
 		email: string; 
 		phone: string;
@@ -300,6 +308,19 @@ interface IOrderContactsForm {
 
 type IOrderForm = IOrderDeliveryForm & IOrderContactsForm;
 ```
+
+### Класс `Success` 
+Класс для отображения информации об оформленном заказе
+* `_total` - общая сумма заказа, получаемая с сервера <br>
+Также позволяет назначить(`set`) `total`.
+
+## Внешние связи
+
+### LarekAPI
+Класс взаимодействия с API-сервером.
+* `getLotItem()` - метод для получения информации по определенному лоту
+* `getLotList()` - метод для получения информации по всем лотам
+* `postOrderLots()` - метод для оформления заказа
 
 ## Размещение в сети
 Ссылка на репозиторий: https://github.com/pudgekaramelkin/web-larek-frontend
