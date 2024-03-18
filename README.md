@@ -112,7 +112,7 @@ yarn build
 * `description?: string` - описание лота (необязательный пункт).
 * `image: string` - картинка лота.
 * `category: string` - категория лота.
-* `price: number` - цена лота.
+* `price: number | null` - цена лота.
 * `isOrdered: boolean` - заказан ли лот.<br>
 
 ##### Методы:
@@ -310,7 +310,7 @@ interface IItem {
 	description?: string;
 	image: string;
 	category: IItemCategory;
-	price: number;
+	price: number | null;
 	isOrdered: boolean;
 	placeInShoppingCart: () => void;
 	removeFromShoppingCart: () => void;
