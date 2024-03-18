@@ -56,16 +56,18 @@ yarn build
 
 ### Класс `Api`
 Абстрактный базовый класс, который обеспечивает доступ к веб-сервису. Он реализует основные операций: GET, POST.
-* `constructor(baseUrl: string, options: RequestInit)` - принимает домен сервера и параметры запроса при помощи встроенного типа `RequestInit`<br>
-Методы:
+* `constructor(baseUrl: string, options: RequestInit)` - принимает домен сервера и параметры запроса при помощи встроенного типа `RequestInit`
+
+##### Методы:
 - `getServerAnswer(result: Response): Promise<object>` - обрабатывает ответ сервера.
 - `get(uri: string): Promise<object>` - реализация метода GET.
 - `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - реализация метода POST.
 
 ### Класс `View<T>` 
 Абстрактный базовый класс, предназначенным для создания компонентов пользовательского интерфейса. Класс обеспечивает инструментарий для управления DOM элементами и поведением компонента. Наследуется всеми классами представления (View).
-* `constructor(container: HTMLElement, events: IEvents)` - принимает элемент контейнера, в который будет помещен компонент и брокер событий.<br>
-Методы:
+* `constructor(container: HTMLElement, events: IEvents)` - принимает элемент контейнера, в который будет помещен компонент и брокер событий.
+
+##### Методы:
 - `toggleClass(element: HTMLElement, className: string, force?: boolean): void` - переключается класс для переданного элемента.
 - `setText(element: HTMLElement, value: unknown): void` - устанавливает текстовое содержимое для переданного элемента.
 - `setImage(element: HTMLImageElement, src: string, alt?: string): void` - устанавливает изображения и альтернативный текст для изоображения (опционально) для переданного элемента типа HTMLImageElement
@@ -75,20 +77,23 @@ yarn build
  
 ### Класс `Model<T>`
 Абстрактный базовый класс, предназначенный для компонентов уровня данных. Его функции: связывание переданных данных со свойством объекта (это реализовано в конструкторе) и инициализация вызова именованных событий через метод `emitChanges`. Наследуется всеми классами представления (Model).
-* `constructor(data: Partial<T>, protected events: IEvents)` - принимает используемые моделью данные и объект брокера событий.<br>
-Методы:
+* `constructor(data: Partial<T>, protected events: IEvents)` - принимает используемые моделью данные и объект брокера событий.
+
+##### Методы:
 - `emitChanges(event: string, payload?: object): void` - сообщает об изменении в модели.
 
 ## Компоненты уровня данных
 
 ### Класс `AppState` 
 Класс уровня данных для общих данных приложения, отслеживающий состояние всего приложения.
-* `constructor(data: Partial<IAppState>, events: IEvents)` - принимает используемые моделью данные и объект брокера событий.<br>
-Поля:
+* `constructor(data: Partial<IAppState>, events: IEvents)` - принимает используемые моделью данные и объект брокера событий.
+
+##### Поля:
 * `_order: IOrder` - элемент состояние заказа.
 * `_preview: IItem` - элемент лота, который находится в модальном окне.
-* `_catalog: IItem[]` - элемент списка доступных лотов, при установке данного свойства вызывается событие `catalog:changed`.<br>
-Методы:
+* `_catalog: IItem[]` - элемент списка доступных лотов, при установке данного свойства вызывается событие `catalog:changed`.
+
+##### Методы:
 - `set сatalog(items: IItem[])` - устанавливает каталог и вызывает `emitChanges`.
 - `set preview(items: IItem)` - устанавливает элемент лота, который находися в модальном окне и вызывает `emitChanges`.
 - `isItemInShoppingCart(item: IItem): boolean` - проверят, находится ли лот в корзине.
@@ -99,8 +104,9 @@ yarn build
 
 
 ### Класс `Item`
-Класс уровня данных для отдельной карточки. Реализует событие `lot:changed`.<br>
-Поля:
+Класс уровня данных для отдельной карточки. Реализует событие `lot:changed`.
+
+##### Поля:
 * `id: string` - id лота.
 * `title: string` - название лота.
 * `description?: string` - описание лота (необязательный пункт).
@@ -108,7 +114,8 @@ yarn build
 * `category: string` - категория лота.
 * `price: number` - цена лота.
 * `isOrdered: boolean` - заказан ли лот.<br>
-Методы:
+
+##### Методы:
 - `placeInShoppingCart(): void` - добавляет лот в корзину.
 - `removeFromShoppingCart(): void` - метод, удаляет лот из корзины.
 
@@ -129,51 +136,59 @@ yarn build
 
 ### Класс `Page` 
 Класс уровня отображения для всей страницы.
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента и брокер событий.<br>
-Поля: 
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента и брокер событий.
+
+##### Поля: 
 * `_counter: HTMLElement` - элемент отображения количества товаров в корзине.
 * `_galery: HTMLElement` - элемент отображения всех лотов.
 * `_wrapper: HTMLElement` - обертка, которая позволяет блокировать прокрутка страницы, если открыто модальное окно.
-* `_shoppingCart: HTMLButtonElement` - кнопка, которая отображет корзину. При нажатии на кнопку вызывается событие `shoppingCart:open`.<br>
-Методы:
+* `_shoppingCart: HTMLButtonElement` - кнопка, которая отображет корзину. При нажатии на кнопку вызывается событие `shoppingCart:open`.
+ 
+##### Методы:
 - `set counter(value: number)` - устанавливает количество лотов в корзине.
 - `set galery(items: HTMLElement[])` - обновляет список карточек.
 - `set locked(value: boolean)` - обрабатывает блокировку страницы.
 
 ### Класс `Modal` 
 Класс уровня отображения для модального окна.
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента и брокер событий.<br>
-Поля:
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента и брокер событий.
+
+##### Поля:
 * `_closeButton: HTMLButtonElement` - элемент для отображения кнопки закрытия модального окна.
-* `_content: HTMLElement` - элемент для отображения внутреннего контента модального окна.<br>
-Методы:
+* `_content: HTMLElement` - элемент для отображения внутреннего контента модального окна.
+  
+##### Методы:
 - `set content(value: HTMLElement)` - назначает внутренний контент модального окна.
 - `open(): void` - открывает модальное окно.
 - `close(): close` - закрывает модальное окно.
 
 ### Класс `ShoppingCart` 
 Класс отображения для корзины.
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.<br>
-Поля:
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
+
+##### Поля:
 * `_list: HTMLElement` - элемент списка отображаемых элементов в корзине.
 * `_total: HTMLElement` - элемент общей стоимости корзины.
-* `_button: HTMLElement` - элемент кнопки для открытия формы оформления заказа, который вызывает событие `order_payment:open`.<br>
-Методы: 
+* `_button: HTMLElement` - элемент кнопки для открытия формы оформления заказа, который вызывает событие `order_payment:open`.
+
+##### Методы: 
 - `set items(item: HTMLElement[])` - назначает список отображаемых элементов.
 - `set total(value: number)` - назначает общую стоимость корзины.
 - `set valid(value: boolean)` - назначает закрытие/открытие кнопки длы формы оформления заказа.
 
 ### Класс `Card` 
 Класс отображения для карточки.
-* `constructor(protected blockName: string, container: HTMLElement, events: IEvents, actions?: ICardActions)` - принимает название блока, объект контейнера, брокер события и доступные события для привязки.<br>
-Поля:
+* `constructor(protected blockName: string, container: HTMLElement, events: IEvents, actions?: ICardActions)` - принимает название блока, объект контейнера, брокер события и доступные события для привязки.
+
+##### Поля:
 * `_title: HTMLElement` - элемент названия карточки.
 * `_description?: HTMLElement` - элемент описания карточки.
 * `_image: HTMLImageElement` - элемент изображения карточки.
 * `_category: HTMLElement` - элемент категории карточки.
 * `_price: HTMLElement` - элемент стоимости лота.
-* `_button: HTMLButtonElement` - элемент открытия карточки.<br>
-Методы: 
+* `_button: HTMLButtonElement` - элемент открытия карточки.
+
+##### Методы: 
 - `set title(value: IItemCategory)` - назначает название карточки.
 - `set description(value: string)` - назначает описание карточки.
 - `set image(value: string)` - назначает изображение карточки.
@@ -183,24 +198,28 @@ yarn build
 
 ### Класс `ShoppingCartItem`
 Класс отображение для элементов корзины.
-* `constructor(container: HTMLElement, events: IEvents, actions?: ICardActions)` - принимает объект контейнера, брокер события и доступные события для привязки.<br>
-Поля:
+* `constructor(container: HTMLElement, events: IEvents, actions?: ICardActions)` - принимает объект контейнера, брокер события и доступные события для привязки.
+
+##### Поля:
 * `_index: HTMLElement` - элемент порядкового номера элемента в корзине.
 * `_title: HTMLElement` - элемент названия элемента в корзине.
 * `_price: HTMLElement` - элемент стоимости элемента в корзине.
-* `_deleteButton: HTMLButtonElement` - элемент кнопки удаления элемента из корзины.<br>
-Методы:
+* `_deleteButton: HTMLButtonElement` - элемент кнопки удаления элемента из корзины.
+
+##### Методы:
 - `set index(value: number)` -назначает номер элемента в корзине.
 - `set title(value: string)` -назначает название элемента в корзине.
 - `set price(value: number)` -назначает цену элемента в корзине.
 
 ### Класс `Form<T>` 
 Класс отображения для базовой формы. На данный класс на весь контейнер отображения привязывается событие отслеживание `input`, для того, чтобы можно было вызвать события `container.field:change`, `container:submit`
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.<br>
-Поля:
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
+
+##### Поля:
 * `_submit: HTMLButtonElement;` - элемент кнопки отправки формы.
-* `_errors: HTMLElement` - элемент блока отображения ошибок в форме.<br>
-Методы:
+* `_errors: HTMLElement` - элемент блока отображения ошибок в форме.
+
+##### Методы:
 - `protected onInputChange(field: keyof T, value: string): void` - генерирует событие при каком-либо изменении в поле ввода.
 - `set valid(value: boolean)` - назначает закрытие/открытие формы.
 - `set errors(value: string)` - назначает текст ошибки.
@@ -208,42 +227,67 @@ yarn build
 
 ### Класс `DeliveryForm` 
 Класс отображения для формы оформления заказа с адресом и способом оплаты, наследуется от класса `Form`.
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.<br>
-Поля:
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
+
+##### Поля:
 * `_paymentContainer: HTMLDivElement` - элемент контейнера оплаты.
-* `_paymentButtons: HTMLButtonElement[]` - элемент кнопок оплаты.<br>
-Методы:
+* `_paymentButtons: HTMLButtonElement[]` - элемент кнопок оплаты.
+
+##### Методы:
 - `setClassPaymentMethod(className: string): void` - управляет выделением кнопки в зависимости от способа оплаты.
 - `set payment(value: string)` - назначает способ оплаты.
 - `set address(value: IPaymentType)` - назначает адрес оплаты.
 
 ### Класс `ContactsForm` 
 Класс отображения для формы оформления заказа с информацией, наследуется от класса `Form`.
-* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.<br>
-Методы:
+* `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
+
+##### Методы:
 - `set phone(value: string)` - назначает номер пользователя для формы.
 - `set email(value: string)` - назначает электронную почту пользователя для формы.
 
 ### Класс `Success` 
 Класс отображения для информации об успешном оформленном заказе.
-* `constructor(container: HTMLElement, events: IEvents, actions: ISuccessActions)` - принимает объект контейнера, брокер события и доступные события для привязки.<br>
-Поля:
+* `constructor(container: HTMLElement, events: IEvents, actions: ISuccessActions)` - принимает объект контейнера, брокер события и доступные события для привязки.
+
+##### Поля:
 * `_close: HTMLElement` - элемент закрытия окна.
-* `_total: HTMLElement` - элемент общей суммы.<br>
-Методы: 
+* `_total: HTMLElement` - элемент общей суммы.
+
+##### Методы: 
 - `set total(value: number)` - назначает списанную сумму.
 
 ## Внешние связи
 
 ### LarekAPI
 Класс взаимодействия с API-сервером.
-* `constructor(cdn: string, baseUrl: string, options?: RequestInit)` - принимает используемый домен со статикой, домен сервера и параметры запроса.<br>
-Поля:
-* `private cdn: string` - используемый домен со статикой.<br>
-Методы:
+* `constructor(cdn: string, baseUrl: string, options?: RequestInit)` - принимает используемый домен со статикой, домен сервера и параметры запроса.
+
+##### Поля:
+* `private cdn: string` - используемый домен со статикой.
+
+##### Методы:
 - `getLotItem(id: string): Promise<IItem>` - получает всю информация для конкертного лота.
 - `getLotList: Promise<IItem[]>` - выгружает все доступные лоты.
 - `postOrderLots(order: IOrderAPI): Promise<IOrderResult>` -отправляет запрос на оформление заказа на сервер.
+
+## Описание событий 
+* `catalog:changed` - возникает при изменения поля `_catalog: IItem[]` у класса `AppState`, подгружаем все доступные лоты.
+* `card:open` - возникает при нажатии на карточку, открываем карточку лота для просмотра.
+* `shoppingCart:open` - возникает при нажатии на корзину, открываем корзину.
+* `lot:changed` - возникает при вызове или метода `placeInShoppingCart(): void` или  метода `removeFromShoppingCart(): void`, удаляем/добавляем лот из корзины
+* `formErrors:changed` - возникает при изменении в любои из свойств класса `Form`, проверяем форму отправки.
+* `order_payment:open` - возникает при нажатии на кнопку `button` класса `ShoppingCart`, начинаем (открываем) оформление заказа.
+* `order:submit` - возникает при отправки первой формы, закончили оформление первой формы.
+* `order_contacts:open` - возникает после первой формы, продолжаем оформление заказа, открывается форма с данными контактнами.
+* `contacts:submit` - возникает при отправки второй формы, закончили оформление второй формы.
+* `order:post` - возникает при вызове метода `postOrder(): void`, завершаем заказ.
+* `payment:changed` - возникает при изменении метода оплаты, выбираем способ оплаты заказа.
+* `order.address:change` -  возникает при изменении адреса телефона, изменили адрес доставки
+* `contacts.email:change` - возникает при изменении инпута почты, изменили почту пользователя для связи.
+* `contacts.phone:change` - возникает при изменении инпута телефона, изменили телефон пользователя для связи.
+* `modal:open` - возникает при открытии модального окна, блокировка к другим частям сайта при открытии модального окна.
+* `modal:close` - возникает при закрытии модального окна, снятие блокировки при закрытии модального окна.
 
 ## Ключевые типы данных
 ```typescript
@@ -258,12 +302,14 @@ interface IAppState {
 	initOrder: () => void;
 }
 
+type IItemCategory = 'кнопка' | 'софт-скил' | 'дополнительное' | 'хард-скил' | 'другое';
+
 interface IItem {
 	id: number;
 	title: string;
 	description?: string;
 	image: string;
-	category: string;
+	category: IItemCategory;
 	price: number;
 	isOrdered: boolean;
 	placeInShoppingCart: () => void;
