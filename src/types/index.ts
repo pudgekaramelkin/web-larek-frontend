@@ -1,9 +1,16 @@
+type IItemCategory =
+	| 'кнопка'
+	| 'софт-скил'
+	| 'дополнительное'
+	| 'хард-скил'
+	| 'другое';
+
 interface IItem {
 	id: string;
 	title: string;
 	description?: string;
 	image: string;
-	category: string;
+	category: IItemCategory;
 	price: number | null;
 	isOrdered: boolean;
 	placeInShoppingCard: () => void;
@@ -49,6 +56,7 @@ interface IAppState {
 }
 
 export {
+	IItemCategory,
 	IItem,
 	PaymentType,
 	IOrderDeliveryForm,
