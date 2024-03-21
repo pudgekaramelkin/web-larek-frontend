@@ -13,14 +13,14 @@ interface IItem {
 	category: IItemCategory;
 	price: number | null;
 	isOrdered: boolean;
-	placeInShoppingCard: () => void;
-	removeFromShoppingCard: () => void;
+	placeInShoppingCart: () => void;
+	removeFromShoppingCart: () => void;
 }
 
-type PaymentType = 'card' | 'cash';
+type IPaymentType = 'card' | 'cash';
 
 interface IOrderDeliveryForm {
-	payment: PaymentType;
+	payment: IPaymentType;
 	address: string;
 }
 
@@ -30,6 +30,28 @@ interface IOrderContactsForm {
 }
 
 type IOrderForm = IOrderDeliveryForm & IOrderContactsForm;
+
+interface IOrderAPI extends IOrderForm {
+	items: string[];
+	total: number;
+}
+
+type IFormErrors = Partial<Record<keyof IOrderForm, string>>;
+
+interface IOrderResult {
+	id: string;
+	total: number;
+}
+
+interface ILarekAPI {
+	getLotItem: (id: string) => Promise<IItem>;
+	getLotList: () => Promise<IItem[]>;
+	postOrderLots: (order: IOrderAPI) => Promise<IOrderResult>;
+}
+
+type CatalogChangeEvent = {
+	catalog: IItem[]
+}
 
 interface IOrder extends IOrderForm {
 	items: IItem[];
@@ -44,7 +66,7 @@ interface IOrder extends IOrderForm {
 
 interface IAppState {
 	catalog: IItem[];
-	basket: IItem[];
+	shoppingCart: IItem[];
 	order: IOrder;
 	preview: IItem;
 	isLotInBasket(item: IItem): boolean;
@@ -58,9 +80,15 @@ interface IAppState {
 export {
 	IItemCategory,
 	IItem,
-	PaymentType,
+	IFormErrors,
+	IPaymentType,
+	CatalogChangeEvent,
 	IOrderDeliveryForm,
+	IOrderContactsForm,
 	IOrderForm,
+	IOrderAPI,
+	IOrderResult,
+	ILarekAPI,
 	IOrder,
 	IAppState,
 };
