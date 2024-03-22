@@ -4,43 +4,45 @@ import { cloneTemplate, ensureElement } from './utils/utils';
 import { EventEmitter } from './components/base/events';
 import { LarekAPI } from './components/LarekAPI';
 import { API_URL, CDN_URL } from './utils/constants';
+import { AppState } from './components/model/AppState';
 import { Page } from './components/view/Page';
 import { Modal } from './components/view/Modal';
 import { ShoppingCart } from './components/view/ShoppingCart';
 import { Card } from './components/view/Card';
 import { Success } from './components/view/Success';
-import { CatalogChangeEvent, IFormErrors, IItem, IPaymentType } from './types';
-import { AppState } from './components/model/AppState';
 import { DeliveryForm } from './components/view/DeliveryForm';
 import { ContactsForm } from './components/view/ContactsForm';
 import { ShoppingCartItem } from './components/view/ShoppingCartItem';
+import { CatalogChangeEvent, IFormErrors, IItem, IPaymentType } from './types';
 
-const api = new LarekAPI(CDN_URL, API_URL);
 const events = new EventEmitter();
+const api = new LarekAPI(CDN_URL, API_URL);
 
 const templates = {
-	cardCatalog: ensureElement<HTMLTemplateElement>('#card-catalog'),
-	cardPreview: ensureElement<HTMLTemplateElement>('#card-preview'),
-	cardShoppingCart: ensureElement<HTMLTemplateElement>('#card-shoppingCart'),
 	shoppingCart: ensureElement<HTMLTemplateElement>('#shoppingCart'),
 	delivery: ensureElement<HTMLTemplateElement>('#order'),
 	contacts: ensureElement<HTMLTemplateElement>('#contacts'),
 	success: ensureElement<HTMLTemplateElement>('#success'),
+	cardCatalog: ensureElement<HTMLTemplateElement>('#card-catalog'),
+	cardPreview: ensureElement<HTMLTemplateElement>('#card-preview'),
+	cardShoppingCart: ensureElement<HTMLTemplateElement>('#card-shoppingCart'),
 };
-
-const appData = new AppState({}, events);
 
 const page = new Page(document.body, events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
+
+const appData = new AppState({}, events);
 
 const shoppingCart = new ShoppingCart(
 	cloneTemplate(templates.shoppingCart),
 	events
 );
+
 const deliveryForm = new DeliveryForm(
 	cloneTemplate(templates.delivery),
 	events
 );
+
 const contactsForm = new ContactsForm(
 	cloneTemplate(templates.contacts),
 	events
@@ -56,12 +58,7 @@ events.on<CatalogChangeEvent>('catalog:changed', () => {
 				onClick: () => events.emit('card:open', item),
 			}
 		);
-		return card.render({
-			category: item.category,
-			title: item.title,
-			image: item.image,
-			price: item.price,
-		});
+		return card.render({ ...item });
 	});
 });
 
@@ -89,11 +86,7 @@ events.on('card:open', (item: IItem) => {
 
 	openModal(
 		card.render({
-			category: item.category,
-			title: item.title,
-			description: item.description,
-			image: item.image,
-			price: item.price,
+			...item,
 			button: !item.isOrdered ? 'Купить' : 'Удалить',
 		})
 	);
@@ -115,8 +108,7 @@ events.on('lot:changed', () => {
 		);
 		return card.render({
 			index: index,
-			title: item.title,
-			price: item.price,
+			...item,
 		});
 	});
 
@@ -197,9 +189,18 @@ events.on('order_contacts:open', () => {
 	);
 });
 
+interface IOrderData {
+	payment: IPaymentType;
+	address: string;
+	email: string;
+	phone: string;
+	total: number;
+	items: string[];
+}
+
 events.on('contacts:submit', () => {
 	const order = appData.order;
-	const orderData = {
+	const orderData: IOrderData = {
 		payment: order.payment,
 		address: order.address,
 		email: order.email,
@@ -208,9 +209,9 @@ events.on('contacts:submit', () => {
 		items: appData.getShoppingCartIds(),
 	};
 
-	api
-		.postOrderLots(orderData)
-		.then((result) => {
+	const handleOrderSubmission = async (orderData: IOrderData) => {
+		try {
+			const result = await api.postOrderLots(orderData);
 			const success = new Success(cloneTemplate(templates.success), events, {
 				onClick: () => {
 					modal.close();
@@ -224,10 +225,12 @@ events.on('contacts:submit', () => {
 			});
 
 			appData.clearShoppingCart();
-		})
-		.catch((err) => {
+		} catch (err) {
 			console.error(err);
-		});
+		}
+	};
+
+	handleOrderSubmission(orderData);
 });
 
 events.on('modal:open', () => {
