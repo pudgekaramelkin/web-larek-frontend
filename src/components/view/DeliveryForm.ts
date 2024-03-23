@@ -1,6 +1,6 @@
 import { IPaymentType, IOrderDeliveryForm } from '../../types';
 import { ensureElement } from '../../utils/utils';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 import { Form } from './Form';
 
 export class DeliveryForm extends Form<IOrderDeliveryForm> {
@@ -27,7 +27,6 @@ export class DeliveryForm extends Form<IOrderDeliveryForm> {
 
 	setClassPaymentMethod(className: string): void {
 		this._paymentButtons.forEach((btn) => {
-			// TODO: возможно тут сравнивать с data-атрибутом
 			if (btn.name === className) {
 				this.toggleClass(btn, 'button_alt-active', true);
 			} else {

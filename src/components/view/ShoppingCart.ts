@@ -1,6 +1,6 @@
 import { createElement, ensureElement, formatSinaps } from '../../utils/utils';
 import { View } from '../base/View';
-import { EventEmitter } from '../base/events';
+import { EventEmitter } from '../base/Events';
 
 interface IShoppingCart {
 	items: HTMLElement[];

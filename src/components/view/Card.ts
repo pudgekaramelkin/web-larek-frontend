@@ -2,7 +2,7 @@ import { IItemCategory } from '../../types';
 import { CATEGORY_MAP } from '../../utils/constants';
 import { ensureElement, formatSinaps } from '../../utils/utils';
 import { View } from '../base/View';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 
 export interface ICardActions {
 	onClick: (event: MouseEvent) => void;
@@ -78,7 +78,6 @@ export class Card extends View<ICard> {
 
 	set price(value: number) {
 		this.setText(this._price, formatSinaps(value));
-		// TODO: стоит вынести в отдельное свойство
 		this.setDisabled(this._button, value == null);
 	}
 

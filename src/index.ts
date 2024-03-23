@@ -1,7 +1,7 @@
 import './scss/styles.scss';
 
 import { cloneTemplate, ensureElement } from './utils/utils';
-import { EventEmitter } from './components/base/events';
+import { EventEmitter } from './components/base/Events';
 import { LarekAPI } from './components/LarekAPI';
 import { API_URL, CDN_URL } from './utils/constants';
 import { AppState } from './components/model/AppState';
@@ -87,7 +87,7 @@ events.on('card:open', (item: IItem) => {
 	openModal(
 		card.render({
 			...item,
-			button: !item.isOrdered ? 'Купить' : 'Удалить',
+			button: !item.isOrdered ? 'Купить' : 'Удалить из корзины',
 		})
 	);
 });
@@ -102,7 +102,7 @@ events.on('lot:changed', () => {
 			{
 				onClick: () => {
 					item.removeFromShoppingCart();
-					events.emit('basket:open');
+					events.emit('shoppingCart:open');
 				},
 			}
 		);

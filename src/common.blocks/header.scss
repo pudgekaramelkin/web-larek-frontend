@@ -23,7 +23,7 @@
     }
   }
 
-  &__basket {
+  &__shoppingCart {
     //@include mixins.icon($headerElementsSize, 'basket-2');
     @include mixins.link($primary, $hover);
     background-image: url(../images/shopping_cart.svg);

@@ -1,6 +1,6 @@
 import { IAppState, IItem, IOrder } from '../../types';
 import { Model } from '../base/Model';
-import { IEvents } from '../base/events';
+import { IEvents } from '../base/Events';
 import { Item } from './Item';
 import { Order } from './Order';
 
