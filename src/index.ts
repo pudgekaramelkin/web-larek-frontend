@@ -13,7 +13,7 @@ import { Success } from './components/view/Success';
 import { DeliveryForm } from './components/view/DeliveryForm';
 import { ContactsForm } from './components/view/ContactsForm';
 import { ShoppingCartItem } from './components/view/ShoppingCartItem';
-import { CatalogChangeEvent, IFormErrors, IItem, IPaymentType } from './types';
+import { CatalogChangeEvent, IFormErrors, IItem, IPaymentType, IOrderData } from './types';
 
 const events = new EventEmitter();
 const api = new LarekAPI(CDN_URL, API_URL);
@@ -188,15 +188,6 @@ events.on('order_contacts:open', () => {
 		})
 	);
 });
-
-interface IOrderData {
-	payment: IPaymentType;
-	address: string;
-	email: string;
-	phone: string;
-	total: number;
-	items: string[];
-}
 
 events.on('contacts:submit', () => {
 	const order = appData.order;

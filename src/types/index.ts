@@ -17,6 +17,16 @@ interface IItem {
 	removeFromShoppingCart: () => void;
 }
 
+
+interface IOrderData {
+	payment: IPaymentType;
+	address: string;
+	email: string;
+	phone: string;
+	total: number;
+	items: string[];
+}
+
 type IPaymentType = 'card' | 'cash';
 
 interface IOrderDeliveryForm {
@@ -88,6 +98,7 @@ export {
 	IOrderForm,
 	IOrderAPI,
 	IOrderResult,
+	IOrderData,
 	ILarekAPI,
 	IOrder,
 	IAppState,
