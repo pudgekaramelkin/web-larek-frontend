@@ -60,6 +60,7 @@ yarn build
 
 ##### Методы:
 - `handleResponse(result: Response): Promise<object>` - обрабатывает ответ сервера.
+- `private _request(uri: string, options: RequestInit)` - универсальный метод запроса с проверкой ответа.
 - `get(uri: string): Promise<object>` - реализация метода GET.
 - `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - реализация метода POST.
 
@@ -253,6 +254,10 @@ yarn build
 ### Класс `ContactsForm` 
 Класс отображения для формы оформления заказа с информацией, наследуется от класса `Form`.
 * `constructor(container: HTMLElement, evens: IEvents)` - принимает родительский контейнер для элемента (темплейта) и брокер событий.
+
+#### Поля:
+* `_phoneInput: HTMLInputElement` - элемент инпута телефона.
+* `_emailInput: HTMLInputElement` - элемент инпута почты.
 
 ##### Методы:
 - `set phone(value: string)` - назначает номер пользователя для формы.
