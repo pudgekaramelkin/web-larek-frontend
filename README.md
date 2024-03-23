@@ -59,7 +59,7 @@ yarn build
 * `constructor(baseUrl: string, options: RequestInit)` - принимает домен сервера и параметры запроса при помощи встроенного типа `RequestInit`
 
 ##### Методы:
-- `getServerAnswer(result: Response): Promise<object>` - обрабатывает ответ сервера.
+- `handleResponse(result: Response): Promise<object>` - обрабатывает ответ сервера.
 - `get(uri: string): Promise<object>` - реализация метода GET.
 - `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>` - реализация метода POST.
 
